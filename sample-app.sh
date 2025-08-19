@@ -11,7 +11,7 @@ cp sample_app.py web/.
 cp -r templates/* web/templates/.
 cp -r static/* web/static/.
 
-echo "COPY  requirements.txt" >> web/Dockerfile
+echo "COPY  requirements.txt ." >> web/Dockerfile
 echo "COPY  ./static /home/myapp/static/" >> web/Dockerfile
 echo "COPY  ./templates /home/myapp/templates/" >> web/Dockerfile
 echo "COPY  sample_app.py /home/myapp/" >> web/Dockerfile
@@ -19,7 +19,7 @@ echo "COPY  sample_app.py /home/myapp/" >> web/Dockerfile
 echo "FROM python:3.11-slim" >> web/Dockerfile
 echo "RUN pip install --no-cache-dir --progress-bar off flask" >> web/Dockerfile
 echo "RUN pip install pymongo" >> web/Dockerfile
-echo "RUN pip install -r requirements.txt">> web/Dockerfile
+echo "RUN pip install -r requirements.txtS">> web/Dockerfile
 
 echo "EXPOSE 8080" >> web/Dockerfile
 echo "CMD python3 home/myapp/sample_app.py" >> web/Dockerfile

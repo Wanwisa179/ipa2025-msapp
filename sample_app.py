@@ -15,7 +15,7 @@ db_name    = os.environ.get("DB_NAME")
 
 
 client = MongoClient(mongo_uri)
-mydb = client[mongo_uri]
+mydb = client[db_name]
 mycol = mydb["routers"]
 
 @sample.route("/")

@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-COPY  requirements.txt
+COPY  requirements.txt .
 COPY  ./static /home/myapp/static/
 COPY  ./templates /home/myapp/templates/
 COPY  sample_app.py /home/myapp/

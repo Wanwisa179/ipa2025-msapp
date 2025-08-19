@@ -11,11 +11,11 @@ from bson import ObjectId
 sample = Flask(__name__)
 
 mongo_uri = os.environ.get("MONGO_URI")
-db_nammongo_urie = os.environ.get("DB_NAME")
+db_name = os.environ.get("DB_NAME")
 
 
 client = MongoClient(mongo_uri)
-mydb = client[mongo_uri]
+mydb = client[db_name]
 mycol = mydb["routers"]
 
 @sample.route("/")
