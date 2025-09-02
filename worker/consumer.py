@@ -3,7 +3,7 @@ import os, time, pika
 from callback import callback
 
 user = os.getenv("Rab_user")
-pwd  = os.getenv("Rab_pass")
+pwd = os.getenv("Rab_pass")
 
 
 def consume(host):
@@ -12,7 +12,9 @@ def consume(host):
             print(f"Connecting to RabbitMQ (try {attempt})...")
             print(host)
             creds = pika.PlainCredentials(user, pwd)
-            conn = pika.BlockingConnection(pika.ConnectionParameters(host, credentials=creds))
+            conn = pika.BlockingConnection(
+                pika.ConnectionParameters(host, credentials=creds)
+            )
             break
         except Exception as e:
             print(f"Failed: {e}")
@@ -27,5 +29,6 @@ def consume(host):
     ch.basic_consume(queue="router_jobs", on_message_callback=callback, auto_ack=True)
     ch.start_consuming()
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     consume("localhost")
