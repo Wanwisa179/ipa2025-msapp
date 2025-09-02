@@ -1,51 +1,52 @@
 import os
 
-from flask import Flask
-from flask import request
-from flask import render_template
-from flask import redirect
-from flask import url_for
+from flask import Flask, request, render_template, redirect
 from pymongo import MongoClient
 from bson import ObjectId
 
-sample = Flask(__name__)
+app = Flask(__name__)
 
 mongo_uri = os.environ.get("MONGO_URI")
 db_name = os.environ.get("DB_NAME")
 
-
 client = MongoClient(mongo_uri)
-mydb = client[db_name]
-mycol = mydb["routers"]
+db = client[db_name]
+routers = db["routers"]
+interface_status = db["interface_status"]
 
 
-@sample.route("/")
-def main():
-    print(list(mycol.find()))
-    return render_template("index.html", data=list(mycol.find()))
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html", routers=list(routers.find()))
 
 
-@sample.route("/add", methods=["POST"])
-def add_comment():
+@app.route("/add", methods=["POST"])
+def add_router():
     ip = request.form.get("ip")
     username = request.form.get("username")
     password = request.form.get("password")
 
-    mycol.insert_one({"ip": ip, "username": username, "password": password})
+    if ip and username and password:
+        routers.insert_one({"ip": ip, "username": username, "password": password})
+    return redirect("/")
 
-    return redirect(url_for("main"))
+
+@app.route("/delete/<id>", methods=["POST"])
+def delete_router(id):
+    routers.delete_one({"_id": ObjectId(id)})
+    return redirect("/")
 
 
-@sample.route("/delete", methods=["POST"])
-def delete_comment():
-    try:
+@app.route("/router/<ip>", methods=["GET"])
+def router_detail(ip):
+    docs = db.interface_status.find({"router_ip": ip}).sort("timestamp", -1).limit(3)
 
-        id = str(request.form.get("_id"))
-        mycol.delete_one({"_id": ObjectId(id)})
-    except Exception:
-        pass
-    return redirect(url_for("main"))
+    return render_template(
+        "router_detail.html",
+        router_ip=ip,
+        interface_data=docs,
+    )
 
 
 if __name__ == "__main__":
-    sample.run(host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=8080)
