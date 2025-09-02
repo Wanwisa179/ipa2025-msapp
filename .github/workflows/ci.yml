@@ -42,10 +42,10 @@ jobs:
 
     - name: Build & Push Docker Images
       run: |
-        docker build -t Wanwisa179/worker:latest ./worker
-        docker build -t Wanwisa179/scheduler:latest ./scheduler
-        docker build -t Wanwisa179/web:latest ./web
+        docker build -t wanwisa179/worker:latest ./worker
+        docker build -t wanwisa179/scheduler:latest ./scheduler
+        docker build -t wanwisa179/web:latest ./web
 
-        docker push Wanwisa179/worker:latest
-        docker push Wanwisa179/scheduler:latest
-        docker push Wanwisa179/web:latest
+        docker push wanwisa179/worker:latest
+        docker push wanwisa179/scheduler:latest
+        docker push wanwisa179/web:latest
