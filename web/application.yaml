@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ipa2025-msapp-web
-  namespace: argocd
+  namespace: devops-tools
 spec:
   project: ipa2025
   source:
@@ -11,7 +11,7 @@ spec:
     path: web/manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: ipa2025
+    namespace: 'ipa2025'
   syncPolicy:
     automated:
       prune: true
