@@ -1,0 +1,23 @@
+# filename: mongo-endpoints.yaml
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: rabbitmq
+subsets:
+  - addresses:
+      - ip: 10.30.7.30
+    ports:
+      - port: 5672
+
+---
+
+# filename: mongo-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
