@@ -5,7 +5,6 @@ from bson import json_util
 from producer import produce
 from database import get_router_info
 
-
 def scheduler():
 
     INTERVAL = 30.0
