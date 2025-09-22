@@ -18,5 +18,5 @@ spec:
         value: "10"
         protocol: auto
         hostFromEnv: Rabbit_url
-        #usernameFromEnv: RABBITMQ_DEFAULT_USER
-        #passwordFromEnv: RABBITMQ_DEFAULT_PASS
+        usernameFromEnv: RABBITMQ_DEFAULT_USER
+        passwordFromEnv: RABBITMQ_DEFAULT_PASS
