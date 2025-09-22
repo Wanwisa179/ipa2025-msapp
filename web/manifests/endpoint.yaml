@@ -13,7 +13,7 @@ subsets:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: mongo
 spec:
   ports:
     - protocol: TCP
