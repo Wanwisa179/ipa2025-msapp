@@ -5,12 +5,13 @@ from bson import json_util
 from producer import produce
 from database import get_router_info
 
+
 def scheduler():
 
     INTERVAL = 30.0
     next_run = time.monotonic()
     count = 0
-    
+
     while True:
         now = time.time()
         now_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(now))
